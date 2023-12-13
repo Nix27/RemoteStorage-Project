@@ -24,7 +24,7 @@ namespace RemoteStorage.Server.Controllers
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             await _repository.UploadFileAsync(file);
-            return Ok();
+            return Ok(new { message = "success" });
         }
 
         [HttpGet("downloadfile/{fileName}")]

@@ -20,6 +20,18 @@ export async function getFilesOfFolder({ params }){
     return files
 }
 
+export function uploadFile(file){
+    const formData = new FormData()
+    formData.append('file', file)
+
+    fetch('/filestorage/uploadfile', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log("Upload failed: " + err))
+}
+
 export function downloadFile(fileName){
     fetch(`/filestorage/downloadfile/${fileName}`)
     .then(res => res.blob())
