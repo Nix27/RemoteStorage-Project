@@ -1,0 +1,6 @@
+@RemoteStorage.Server_HostAddress = http://localhost:5134
+
+GET {{RemoteStorage.Server_HostAddress}}/filestorage/
+Accept: application/json
+
+###

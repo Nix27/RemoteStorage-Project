@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteStorage.Server", "RemoteStorage.Server\RemoteStorage.Server.csproj", "{A5E4EDA7-74B6-4B98-A0E7-A56BC8027394}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "remotestorage.client", "remotestorage.client\remotestorage.client.esproj", "{52160045-9FA7-475D-8462-206027AB3F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dal", "Dal\Dal.csproj", "{943B7D66-4B4E-47B2-8676-0A93BE9AFBA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5E4EDA7-74B6-4B98-A0E7-A56BC8027394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E4EDA7-74B6-4B98-A0E7-A56BC8027394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E4EDA7-74B6-4B98-A0E7-A56BC8027394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E4EDA7-74B6-4B98-A0E7-A56BC8027394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52160045-9FA7-475D-8462-206027AB3F3D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{943B7D66-4B4E-47B2-8676-0A93BE9AFBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943B7D66-4B4E-47B2-8676-0A93BE9AFBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943B7D66-4B4E-47B2-8676-0A93BE9AFBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943B7D66-4B4E-47B2-8676-0A93BE9AFBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1450FAA-EACA-4F1E-9ABC-AA7401F56FB4}
+	EndGlobalSection
+EndGlobal
