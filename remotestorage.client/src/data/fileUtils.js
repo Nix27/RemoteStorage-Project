@@ -20,6 +20,11 @@ export async function getFilesOfFolder({ params }){
     return files
 }
 
+export async function getFileDetails(fileName){
+    const res = await fetch(`/filestorage/getfiledetails/${fileName}`)
+    return await res.json()
+}
+
 export function uploadFile(file){
     const formData = new FormData()
     formData.append('file', file)
@@ -28,7 +33,15 @@ export function uploadFile(file){
         method: 'POST',
         body: formData
     })
-    .then(res => console.log(res))
+    .then(() => {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Successfully uploaded file!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+    })
     .catch(err => console.log("Upload failed: " + err))
 }
 
@@ -50,7 +63,25 @@ export function downloadFile(fileName){
 }
 
 export function deleteFile(fileName){
-    fetch(`/filestorage/deletefile/${fileName}`, { method: 'DELETE' })
-    .then(console => console.log('deleted'))
-    .catch(err => console.log(err))
+    Swal.fire({
+        title: "Think twice!!",
+        text: "Your problem if you delete wrong :)",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/filestorage/deletefile/${fileName}`, { method: 'DELETE' })
+            .then(() => {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                  });
+            })
+            .catch(err => console.log(err))
+        }
+      });
 }

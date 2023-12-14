@@ -6,8 +6,9 @@ namespace Dal.Repository
     public interface IRepository
     {
         Task<ICollection<string>> GetAllFilesAsync(string? folderName = null);
+        Task<FileDetails> GetFileDetails(string fileName);
         Task UploadFileAsync(IFormFile file);
-        Task<DownloadResponse?> DownloadFileAsync(string fileName);
+        Task<DownloadResponse> DownloadFileAsync(string fileName);
         Task DeleteFileAsync(string blobName);
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dal.Models
+﻿namespace Dal.Models
 {
-    public class DownloadResponse
+    public record DownloadResponse
     {
         public string FileName { get; set; } = null!;
         public Stream Content { get; set; } = null!;

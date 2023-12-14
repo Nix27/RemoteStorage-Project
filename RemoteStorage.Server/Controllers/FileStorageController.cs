@@ -5,19 +5,20 @@ namespace RemoteStorage.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class FileStorageController : ControllerBase
+    public class FileStorageController(IRepository repository) : ControllerBase
     {
-        private readonly IRepository _repository;
-
-        public FileStorageController(IRepository repository)
-        {
-            _repository = repository;
-        }
+        private readonly IRepository _repository = repository;
 
         [HttpGet("getall/{folderName?}")]
         public async Task<IActionResult> GetAll(string? folderName = null)
         {
             return Ok(await _repository.GetAllFilesAsync(folderName));
+        }
+
+        [HttpGet("getfiledetails/{fileName}")]
+        public async Task<IActionResult> GetFileDetails(string fileName)
+        {
+            return Ok(await _repository.GetFileDetails(fileName));
         }
 
         [HttpPost("uploadfile")]
@@ -42,7 +43,7 @@ namespace RemoteStorage.Server.Controllers
         public async Task<IActionResult> DeleteFile(string fileName)
         {
             await _repository.DeleteFileAsync(fileName);
-            return Ok();
+            return Ok(new { message = "success" });
         }
     }
 }
