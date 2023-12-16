@@ -32,14 +32,10 @@ namespace RemoteStorage.Server.Controllers
         public async Task<IActionResult> DownloadFile(string fileName)
         {
             var downloadResponse = await _repository.DownloadFileAsync(fileName);
-
-            if (downloadResponse == null) return BadRequest();
-
             return File(downloadResponse.Content, downloadResponse.ContentType, downloadResponse.FileName);
         }
 
-        [HttpDelete]
-        [Route("deletefile/{fileName}")]
+        [HttpDelete("deletefile/{fileName}")]
         public async Task<IActionResult> DeleteFile(string fileName)
         {
             await _repository.DeleteFileAsync(fileName);

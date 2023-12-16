@@ -9,10 +9,10 @@ export async function getFolders(){
     return folders
 }
 
-export async function getFilesOfFolder({ params }){
+export async function getFilesOfFolder(folder){
     let files = []
 
-    const res = await fetch(`/filestorage/getall/${params.folder}`)
+    const res = await fetch(`/filestorage/getall/${folder}`)
     const data = await res.json()
 
     data.forEach(file => files.push(file))
@@ -25,7 +25,7 @@ export async function getFileDetails(fileName){
     return await res.json()
 }
 
-export function uploadFile(file){
+export function uploadFile(file, refresh){
     const formData = new FormData()
     formData.append('file', file)
 
@@ -41,6 +41,7 @@ export function uploadFile(file){
             showConfirmButton: false,
             timer: 1500
           });
+          refresh()
     })
     .catch(err => console.log("Upload failed: " + err))
 }
@@ -62,7 +63,7 @@ export function downloadFile(fileName){
     .catch(err => console.log('Download error: ' + err))
 }
 
-export function deleteFile(fileName){
+export function deleteFile(fileName, refresh){
     Swal.fire({
         title: "Think twice!!",
         text: "Your problem if you delete wrong :)",
@@ -79,9 +80,10 @@ export function deleteFile(fileName){
                     title: "Deleted!",
                     text: "Your file has been deleted.",
                     icon: "success"
-                  });
+                });
+                refresh()
             })
             .catch(err => console.log(err))
         }
-      });
+      })
 }

@@ -9,7 +9,7 @@ const FolderContainer = () => {
   useEffect(() => {
     getFolders().then(res => setFolders(res))
   }, [])
-    
+
   return (
     <div className='mx-5'>
       <div className='flex flex-wrap gap-5'>

@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton(service => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
-builder.Services.AddSingleton<IRepository, Repository>();
+builder.Services.AddSingleton(provider => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();
 

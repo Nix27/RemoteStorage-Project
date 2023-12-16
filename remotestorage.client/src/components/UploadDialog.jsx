@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { uploadFile } from '../data/fileUtils'
 
-const UploadDialog = ({ handleToogleUploadDialog }) => {
+const UploadDialog = ({ handleToogleUploadDialog, refresh }) => {
   const[file, setFile] = useState(null)
 
   function handleSubmit(e) {
     e.preventDefault();
-    uploadFile(file)
+    uploadFile(file, refresh)
     handleToogleUploadDialog()
   }
 

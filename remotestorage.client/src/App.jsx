@@ -1,28 +1,26 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import FolderContainer from './pages/FolderContainer';
 import FilesContainer from './pages/FilesContainer';
-import { getFilesOfFolder } from './data/fileUtils';
 
-import React from 'react'
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <FolderContainer />
-  },
-  {
-    path: 'files/:folder',
-    loader: getFilesOfFolder,
-    element: <FilesContainer />
-  }
-])
+import React, { useState } from 'react'
 
 const App = () => {
+  const[containerKey, setContainerKey] = useState(crypto.randomUUID())
+
+   function refresh(){
+    setContainerKey(crypto.randomUUID())
+   }
+
   return (
     <>
-        <Navbar />
-        <RouterProvider router={router} />
+        <Navbar refresh={refresh} />
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<FolderContainer key={containerKey + crypto.randomUUID()} />} />
+            <Route path="files/:folder" element={<FilesContainer key={containerKey + crypto.randomUUID()} />} />
+          </Routes>
+        </BrowserRouter>
     </>
   )
 }
