@@ -1,30 +1,22 @@
-﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
+﻿using Azure.Storage.Blobs.Models;
 using Dal.Models;
+using Dal.Provider;
 using Microsoft.AspNetCore.Http;
 
 namespace Dal.Repository
 {
-    public class Repository : IRepository
+    internal class Repository : IRepository
     {
-        private const string BLOB_CONTAINER_NAME = "remotestorage";
         private const string FORWARDSLASH = "/";
 
-        private readonly BlobServiceClient _blobServiceClient;
-        private readonly BlobContainerClient blobContainerClient;
-
-        public Repository(BlobServiceClient blobServiceClient)
-        {
-            _blobServiceClient = blobServiceClient;
-            blobContainerClient = _blobServiceClient.GetBlobContainerClient(BLOB_CONTAINER_NAME);
-        }
+        public Repository() {}
 
         public async Task DeleteFileAsync(string fileName)
         {
             string dir = Path.GetExtension(fileName).TrimStart('.');
             string fullFileName = dir + FORWARDSLASH + fileName;
 
-            var blobClient = blobContainerClient.GetBlobClient(fullFileName);
+            var blobClient = BlobClientProvider.GetBlobContainerClient().GetBlobClient(fullFileName);
             await blobClient.DeleteIfExistsAsync();
         }
 
@@ -33,7 +25,7 @@ namespace Dal.Repository
             string dir = Path.GetExtension(fileName).TrimStart('.');
             string fullFileName = dir + FORWARDSLASH + fileName;
 
-            var blobClient = blobContainerClient.GetBlobClient(fullFileName);
+            var blobClient = BlobClientProvider.GetBlobContainerClient().GetBlobClient(fullFileName);
 
             var blobDownloadResult = await blobClient.DownloadContentAsync();
 
@@ -49,7 +41,7 @@ namespace Dal.Repository
         {
             var blobs = new HashSet<string>();
 
-            await foreach (var item in blobContainerClient.GetBlobsAsync(prefix: folderName))
+            await foreach (var item in BlobClientProvider.GetBlobContainerClient().GetBlobsAsync(prefix: folderName))
             {
                 if (folderName == null)
                 {
@@ -71,7 +63,7 @@ namespace Dal.Repository
             string dir = Path.GetExtension(fileName).TrimStart('.');
             string fullFileName = dir + FORWARDSLASH + fileName;
 
-            var blobClient = blobContainerClient.GetBlobClient(fullFileName);
+            var blobClient = BlobClientProvider.GetBlobContainerClient().GetBlobClient(fullFileName);
 
             var blobDownloadResult = await blobClient.DownloadContentAsync();
 
@@ -90,7 +82,7 @@ namespace Dal.Repository
             string extension = Path.GetExtension(file.FileName).TrimStart('.');
             string fileName = Path.GetFileName(file.FileName);
 
-            var blobClient = blobContainerClient.GetBlobClient($"{extension}/{fileName}");
+            var blobClient = BlobClientProvider.GetBlobContainerClient().GetBlobClient($"{extension}/{fileName}");
             await blobClient.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ContentType });
         }
     }

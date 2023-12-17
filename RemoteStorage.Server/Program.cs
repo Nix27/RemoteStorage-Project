@@ -1,5 +1,5 @@
-using Azure.Storage.Blobs;
-using Dal.Repository;
+using Dal.Provider;
+using Dal.Registration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton(provider => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
-builder.Services.AddScoped<IRepository, Repository>();
+BlobClientProvider.InitializeBlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")!);
+RepositoryRegistration.RegisterRepository(builder.Services);
 
 var app = builder.Build();
 
